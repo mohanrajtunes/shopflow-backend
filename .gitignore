@@ -1,0 +1,18 @@
+# Python / Virtual Environment
+venv/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Django local files
+*.sqlite3
+db.sqlite3-journal
+media/
+
+# Environment secrets
+.env
+
+# VS Code editor settings
+.vscode/
