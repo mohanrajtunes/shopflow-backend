@@ -6,7 +6,7 @@ A production-grade, multi-vendor e-commerce backend built with **Django**, **Dja
 
 ## 🚀 Core Engineering Highlights
 * **ACID Transactions & Concurrency Safety:** Implements `transaction.atomic()` and row-level locking (`select_for_update()`) during the checkout pipeline to completely prevent race conditions and overselling when multiple users buy the last item simultaneously.
-* **Role-Based Access Control (RBAC):** Custom user roles (`Admin`, `Vendor`, `Customer`) with fine-grained permission boundaries (e.g., vendors can only manage their own products).
+* **Role-Based Access Control (RBAC):** Custom user roles (`Admin`, `Vendor`, `Customer`) with fine-grained permission boundaries (e.g., only verified vendors can create or modify products).
 * **Advanced Query Filtering:** Integrated dynamic product filtering by category, search queries, price ranges, and sorting using `django-filter`.
 * **Automated API Documentation:** Fully documented with interactive Swagger UI and OpenAPI schemas via `drf-spectacular`.
 
@@ -25,3 +25,5 @@ A production-grade, multi-vendor e-commerce backend built with **Django**, **Dja
 
 1. **Clone the repository:**
    ```bash
+   git clone [https://github.com/mohanrajtunes/shopflow-backend.git](https://github.com/mohanrajtunes/shopflow-backend.git)
+   cd shopflow-backend
