@@ -28,6 +28,11 @@ class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes =[AllowAny]
     serializer_class = CategorySerializer
 
+    def get_permissions(self):
+        if self.action in ['list', 'retrieve']:
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
