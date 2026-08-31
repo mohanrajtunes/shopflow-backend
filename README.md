@@ -1,29 +1,45 @@
-# 🛒 ShopFlow-API: E-Commerce Marketplace Backend
+# ShopFlow-API
 
-A production-grade, multi-vendor e-commerce backend built with **Django**, **Django REST Framework (DRF)**, and **JWT Authentication**. Designed with a focus on database concurrency control, ACID compliance, and secure inventory management.
+A multi-vendor e-commerce backend built with **Django** and **Django REST Framework**.
 
----
-
-## 🚀 Core Engineering Highlights
-* **ACID Transactions & Concurrency Safety:** Implements `transaction.atomic()` and row-level locking (`select_for_update()`) during the checkout pipeline to completely prevent race conditions and overselling when multiple users buy the last item simultaneously.
-* **Role-Based Access Control (RBAC):** Custom user roles (`Admin`, `Vendor`, `Customer`) with fine-grained permission boundaries (e.g., only verified vendors can create or modify products).
-* **Advanced Query Filtering:** Integrated dynamic product filtering by category, search queries, price ranges, and sorting using `django-filter`.
-* **Automated API Documentation:** Fully documented with interactive Swagger UI and OpenAPI schemas via `drf-spectacular`.
+Focused on real backend engineering problems: inventory race conditions, transactional safety, role-based access control, and clean API design.
 
 ---
 
-## 🛠️ Tech Stack
-* **Language:** Python 3.10+
-* **Framework:** Django & Django REST Framework
-* **Authentication:** SimpleJWT (JSON Web Tokens)
-* **Database:** SQLite (Development) / PostgreSQL-ready
-* **Documentation:** drf-spectacular (Swagger / ReDoc)
+## Engineering Highlights
+
+- **ACID Transactions & Concurrency Safety**  
+  Checkout uses `transaction.atomic()` and `select_for_update()` to prevent overselling when multiple users try to buy the last item at the same time.
+
+- **Role-Based Access Control**  
+  Supports `Admin`, `Vendor`, and `Customer` roles with proper permission boundaries. Vendors can only manage their own products.
+
+- **Dynamic Filtering & Search**  
+  Products can be filtered by category, vendor, price range (`min_price`, `max_price`), and searched by title/description.
+
+- **JWT Authentication**  
+  Secure token-based auth using SimpleJWT (access + refresh tokens).
+
+- **API Documentation**  
+  Interactive Swagger UI available via `drf-spectacular`.
 
 ---
 
-## ⚙️ Local Installation & Setup
+## Tech Stack
 
-1. **Clone the repository:**
-   ```bash
-   git clone [https://github.com/mohanrajtunes/shopflow-backend.git](https://github.com/mohanrajtunes/shopflow-backend.git)
-   cd shopflow-backend
+- Python 3.10+
+- Django + Django REST Framework
+- SimpleJWT
+- django-filter
+- drf-spectacular
+- python-dotenv
+- SQLite (development) / PostgreSQL-ready
+
+---
+
+## Local Setup
+
+1. **Clone the repository**
+```bash
+git clone https://github.com/mohanrajtunes/shopflow-backend.git
+cd shopflow-backend
