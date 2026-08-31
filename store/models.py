@@ -86,3 +86,6 @@ class OrderItem(models.Model):
 
     def __str__(self):
         return f"{self.quantity} x {self.product.title if self.product else 'Deleted Product'} in Order #{self.order.id}"
+
+
+AUTH_USER_MODEL ='store.User'

@@ -7,6 +7,8 @@ from rest_framework.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
 from .permissions import IsVendorOrReadOnly
+from .filters import ProductFilter
+from rest_framework import filters
 from .models import User, Category, Product, CartItem, Order
 from .serializers import(
     UserRegistrationSerializers,
@@ -26,14 +28,15 @@ class CategoryViewSet(viewsets.ModelViewSet):
     permission_classes =[AllowAny]
     serializer_class = CategorySerializer
 
+
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
-    permission_classes = [IsVendorOrReadOnly]
     serializer_class = ProductSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
-    filterset_fields = ['category', 'vendor']
+    permission_classes = [IsVendorOrReadOnly]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter]
+    filterset_class = ProductFilter  # <--- Use custom filter class here
     search_fields = ['title', 'description']
-    ordering_fields = ['price', 'created_at', 'stock']
+    ordering_fields = ['price', 'created_at']
 
     def perform_create(self, serializer):
         serializer.save(vendor=self.request.user)

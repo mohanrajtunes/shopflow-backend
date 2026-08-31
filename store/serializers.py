@@ -7,10 +7,12 @@ class UserRegistrationSerializers(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('id', 'username', 'email', 'password', 'role', 'phone_number')
-
     def create(self, validated_data):
         password = validated_data.pop('password')
-        user = User.objects.create_user(**validated_data)
+        if validated_data.get('role') not in ['customer', 'vendor']:
+            validated_data['role'] = 'customer'
+            
+        user = User.objects.create_user(password=password, **validated_data)
         return user
 
 class CategorySerializer(serializers.ModelSerializer):
