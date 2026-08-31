@@ -1,21 +1,29 @@
+# Virtual Environment
 venv/
 .venv/
+
+# Python
 __pycache__/
 *.py[cod]
 *$py.class
 *.so
 .Python
-*.egg-info/
-dist/
 build/
+
+# Database
 *.sqlite3
 db.sqlite3-journal
-media/
-staticfiles/
+
+# Environment variables
 .env
 .env.local
+
+# Django
+media/
+staticfiles/
+
+# IDE / OS
 .vscode/
 .idea/
 .DS_Store
 *.swp
-23.0
