@@ -43,3 +43,58 @@ Focused on real backend engineering problems: inventory race conditions, transac
 ```bash
 git clone https://github.com/mohanrajtunes/shopflow-backend.git
 cd shopflow-backend
+
+2. **Create and activate virtual environment**
+```bash
+python -m venv venv
+# Windows
+venv\Scripts\activate
+# macOS / Linux
+source venv/bin/activate
+
+3.  **Install dependencies**
+```bash
+pip install -r requirements.txt
+
+4. **Environment variables**
+```bash
+cp .env.example .env
+Open .env and set a strong SECRET_KEY.
+
+5. **Run migrations**
+```bash
+python manage.py migrate
+
+6. **Create superuser (optional)**
+```bash
+python manage.py createsuperuser
+
+7.  **Migrate and start the server**
+```bash
+python manage.py migrate
+python manage.py runserver
+
+8. **Explore the API Docs:**
+Open your browser at http://127.0.0.1:8000/api/docs/
+
+
+🔄 API Request Flow Example
+Register User: POST /api/register/ (Register as customer or vendor)
+
+Obtain Token: POST /api/token/ to receive your JWT Access Token.
+
+Authorize: Click "Authorize" in Swagger and paste Bearer <your_token>.
+
+Create Product (Vendor only): POST /api/products/
+
+Filter Products: GET /api/products/?min_price=100&max_price=500&search=shoes
+
+Add to Cart (Customer): POST /api/cart/
+
+Checkout: POST /api/orders/checkout/ (Triggers atomic transaction, row locking, and stock deduction).
+
+🧪 Running Tests
+To run the automated test suite covering race conditions and stock safety:
+```bash
+python manage.py test store
+ 
