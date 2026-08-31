@@ -9,10 +9,8 @@ class UserRegistrationSerializers(serializers.ModelSerializer):
         fields = ('id', 'username', 'email', 'password', 'role', 'phone_number')
 
     def create(self, validated_data):
-
         password = validated_data.pop('password')
         user = User.objects.create_user(**validated_data)
-        user.save()
         return user
 
 class CategorySerializer(serializers.ModelSerializer):

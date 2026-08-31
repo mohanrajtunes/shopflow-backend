@@ -6,7 +6,7 @@ from django.db import transaction
 from rest_framework.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter, OrderingFilter
-
+from .permissions import IsVendorOrReadOnly
 from .models import User, Category, Product, CartItem, Order
 from .serializers import(
     UserRegistrationSerializers,
@@ -28,7 +28,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 class ProductViewSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
-    permission_classes = [AllowAny]
+    permission_classes = [IsVendorOrReadOnly]
     serializer_class = ProductSerializer
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_fields = ['category', 'vendor']
