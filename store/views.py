@@ -9,7 +9,8 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from .permissions import IsVendorOrReadOnly
 from .filters import ProductFilter
 from rest_framework import filters
-from .models import User, Category, Product, CartItem, Order
+from .permissions import IsAdminOrReadOnly
+from .models import User, Category, Product, CartItem, Order, OrderItem
 from .serializers import(
     UserRegistrationSerializers,
     CategorySerializer,
@@ -25,7 +26,7 @@ class RegisterView(generics.CreateAPIView):
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
-    permission_classes =[AllowAny]
+    permission_classes =[IsAdminOrReadOnly]
     serializer_class = CategorySerializer
 
     def get_permissions(self):
