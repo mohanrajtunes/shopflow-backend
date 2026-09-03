@@ -11,8 +11,8 @@ class ShopFlowSecurityTests(APITestCase):
         self.admin = User.objects.create_superuser(username='admin_boss', password='password123', email='admin@shop.com')
         
         # Vendor has is_staff=True to differentiate from customers
-        self.vendor = User.objects.create_user(username='vendor_guy', password='password123', email='vendor@shop.com', is_staff=True)
-        self.other_vendor = User.objects.create_user(username='other_vendor', password='password123', email='other@shop.com', is_staff=True)
+        self.vendor = User.objects.create_user(username='vendor_guy', password='password123', email='vendor@shop.com', is_staff=True, role='vendor')
+        self.other_vendor = User.objects.create_user(username='other_vendor', password='password123', email='other@shop.com', is_staff=True, role='vendor')
         
         # Customer is a standard user
         self.customer = User.objects.create_user(username='buyer_guy', password='password123', email='buyer@shop.com')

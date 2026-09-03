@@ -28,7 +28,11 @@ class IsVendorAndOwnerOrReadOnly(permissions.BasePermission):
         if request.method in permissions.SAFE_METHODS:
             return True
         # Block customers: Only allow authenticated staff/vendors to POST/PUT/DELETE
-        return bool(request.user and request.user.is_authenticated and request.user.is_staff)
+        return bool(
+            request.user 
+            and request.user.is_authenticated 
+            and getattr(request.user, 'role', None) == 'vendor'
+    )
 
     def has_object_permission(self, request, view, obj):
         # Allow anyone to view a specific product details (GET)
