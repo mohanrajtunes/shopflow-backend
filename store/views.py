@@ -6,6 +6,7 @@ from django.db import transaction
 from rest_framework.exceptions import ValidationError
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import filters
+from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .permissions import IsAdminOrReadOnly
 from .filters import ProductFilter
@@ -15,7 +16,8 @@ from .serializers import (
     CategorySerializer,
     ProductSerializer,
     CartItemSerializer,
-    OrderSerializer
+    OrderSerializer,
+    CustomTokenObtainPairSerializer,
 )
 
 
@@ -45,6 +47,10 @@ class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     permission_classes = [AllowAny]
     serializer_class = UserRegistrationSerializers
+
+
+class CustomTokenObtainPairView(TokenObtainPairView):
+    serializer_class = CustomTokenObtainPairSerializer
 
 
 class CategoryViewSet(viewsets.ModelViewSet):
@@ -147,6 +153,6 @@ class OrderViewSet(viewsets.ModelViewSet):
 
         except ValidationError as e:
             return Response(
-                {"error": str(e)},
+                {"error": " ".join(str(m) for m in e.detail)},
                 status=status.HTTP_400_BAD_REQUEST
             )

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import User, Category, Product, CartItem, Order, OrderItem
-
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 class UserRegistrationSerializers(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
 
@@ -57,3 +57,11 @@ class OrderSerializer(serializers.ModelSerializer):
         model = Order
         fields = ('id', 'customer_username', 'status', 'total_price', 'created_at', 'items')
         read_only_fields = ['customer', 'total_price', 'status']
+
+class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
+    @classmethod
+    def get_token(cls, user):
+        token = super().get_token(user)
+        token['username'] = user.username
+        token['role'] = user.role
+        return token
